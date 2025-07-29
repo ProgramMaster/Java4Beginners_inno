@@ -20,9 +20,9 @@ public class App {
         System.out.println("Введите покупателей в формате: Имя1 = Сумма1; Имя2 = Сумма2; ...");
         String peopleInput = scanner.nextLine().trim();
 
-        // Завершаем работу, так как нам не с кем работать
+        // Завершаем работу, если нам не с кем работать (Покупатели не заданы)
         if (peopleInput.isEmpty()) {
-            System.out.println("Ничего не введено");
+            System.out.println("Ничего не введено. Завершение работы");
             System.exit(0);
         }
         List<Person> people = parsePeople(peopleInput);
@@ -30,6 +30,8 @@ public class App {
         // Ввод продуктов (вторая строка)
         System.out.println("Введите продукты в формате: Продукт1 = Цена1; Продукт2 = Цена2; ...");
         String productsInput = scanner.nextLine().trim();
+
+        // Завершаем работу, если нам не с чем работать (Продукты не заданы)
         if (productsInput.isEmpty()) {
             System.out.println("Ничего не введено");
             System.exit(0);
@@ -52,7 +54,8 @@ public class App {
 
             String[] parts = input.split("-", 2);
             if (parts.length != 2) {
-                System.out.println("Неверный формат ввода покупки");
+                System.out.println("Ошибка! Неверный формат ввода покупки.");
+                System.out.println("Введите покупку в формате: Имя - Продукт");
                 continue;
             }
 
@@ -92,7 +95,11 @@ public class App {
             if (trimmedEntry.isEmpty()) continue;
 
             String[] parts = trimmedEntry.split("=");
-            if (parts.length != 2) {
+            if (parts.length < 2) {
+                System.out.print("Неверный формат ввода покупателя: " + entry);
+                System.out.println(" (Не указана сумма денег)");
+                System.exit(0);
+            } else if (parts.length > 2) {
                 System.out.println("Неверный формат ввода покупателя: " + entry);
                 System.exit(0);
             }
@@ -130,7 +137,11 @@ public class App {
             if (trimmedEntry.isEmpty()) continue;
 
             String[] parts = trimmedEntry.split("=");
-            if (parts.length != 2) {
+            if (parts.length < 2) {
+                System.out.print("Неверный формат ввода продукта: " + entry);
+                System.out.println(" (Не указана цена)");
+                System.exit(0);
+            } else if (parts.length > 2) {
                 System.out.println("Неверный формат ввода продукта: " + entry);
                 System.exit(0);
             }
