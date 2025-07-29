@@ -37,11 +37,11 @@ public class Game_RockPaperScissors {
 
     // Метод для преобразования числового выбора в название фигуры
     private static String getChoiceName(int choice) {
-        switch (choice) {
-            case 0: return "камень";
-            case 1: return "ножницы";
-            case 2: return "бумага";
-            default: return "неизвестно";
-        }
+        return switch (choice) {
+            case 0 -> "камень";
+            case 1 -> "ножницы";
+            case 2 -> "бумага";
+            default -> "неизвестно";
+        };
     }
 }
